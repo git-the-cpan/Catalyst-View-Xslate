@@ -52,6 +52,13 @@
             "Scalar::Util" : "0",
             "Text::Xslate" : "0.1045"
          }
+      },
+      "test" : {
+         "requires" : {
+            "Devel::Cycle" : "0",
+            "PadWalker" : "0",
+            "Test::More" : "0"
+         }
       }
    },
    "provides" : {
@@ -60,7 +67,7 @@
       },
       "Catalyst::View::Xslate" : {
          "file" : "lib/Catalyst/View/Xslate.pm",
-         "version" : "0.00018"
+         "version" : "0.00019"
       }
    },
    "release_status" : "stable",
@@ -74,7 +81,7 @@
          "web" : "https://github.com/lestrrat/Catalyst-View-Xslate"
       }
    },
-   "version" : "0.00018",
+   "version" : "0.00019",
    "x_contributors" : [
       "hidek <hide@hide-k.net>",
       "Breno G. de Oliveira <garu@cpan.org>",
@@ -85,6 +92,6 @@
       "Wallace Reis <wreis@123people.com>",
       "Wallace Reis <wallace@reis.me>",
       "John Napiorkowski <jjn1056@yahoo.com>",
-      "Daisuke Maki <lestrrat+github@gmail.com>"
+      "lestrrat <lestrrat+github@gmail.com>"
    ]
 }

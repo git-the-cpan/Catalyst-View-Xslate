@@ -3,7 +3,10 @@ abstract: 'Text::Xslate View Class'
 author:
   - 'Copyright (c) 2010 Daisuke Maki C<< <daisuke@endeworks.jp> >>'
 build_requires:
+  Devel::Cycle: '0'
   ExtUtils::MakeMaker: '6.36'
+  PadWalker: '0'
+  Test::More: '0'
 configure_requires:
   Module::Build: '0.38'
 dynamic_config: 0
@@ -28,7 +31,7 @@ provides:
     file: lib/Catalyst/Helper/View/Xslate.pm
   Catalyst::View::Xslate:
     file: lib/Catalyst/View/Xslate.pm
-    version: '0.00018'
+    version: '0.00019'
 requires:
   Catalyst: '5.8'
   File::Find: '0'
@@ -38,7 +41,7 @@ resources:
   bugtracker: https://github.com/lestrrat/Catalyst-View-Xslate/issues
   homepage: https://github.com/lestrrat/Catalyst-View-Xslate
   repository: git://github.com/lestrrat/Catalyst-View-Xslate.git
-version: '0.00018'
+version: '0.00019'
 x_contributors:
   - 'hidek <hide@hide-k.net>'
   - 'Breno G. de Oliveira <garu@cpan.org>'
@@ -49,4 +52,4 @@ x_contributors:
   - 'Wallace Reis <wreis@123people.com>'
   - 'Wallace Reis <wallace@reis.me>'
   - 'John Napiorkowski <jjn1056@yahoo.com>'
-  - 'Daisuke Maki <lestrrat+github@gmail.com>'
+  - 'lestrrat <lestrrat+github@gmail.com>'

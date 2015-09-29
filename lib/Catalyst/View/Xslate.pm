@@ -7,7 +7,7 @@ use namespace::autoclean;
 use Scalar::Util qw/blessed weaken/;
 use File::Find ();
 
-our $VERSION = '0.00018';
+our $VERSION = '0.00019';
 
 extends 'Catalyst::View';
 
@@ -133,6 +133,10 @@ has xslate => (
     lazy => 1, builder => '_build_xslate',
 );
 
+has [qw/line_start tag_start tag_end/] => (is=>'rw', isa=>'Str');
+has [qw/warn_handler die_handler pre_process_handler/] => (is=>'rw', isa=>'CodeRef');
+
+
 my $expose_methods_tc = subtype 'HashRef', where { $_ };
 coerce $expose_methods_tc,
   from 'ArrayRef',
@@ -169,7 +173,7 @@ sub _build_xslate {
     );
 
     # optional stuff
-    foreach my $field ( qw( input_layer syntax escape verbose suffix type ) ) {
+    foreach my $field ( qw( input_layer syntax escape verbose suffix type line_start tag_start tag_end warn_handler die_handler pre_process_handler) ) {
         if (defined(my $value = $self->$field)) {
             $args{$field} = $value;
         }
@@ -234,8 +238,11 @@ sub process {
 }
 
 sub build_exposed_method {
-  my ( $self, $ctx, $code ) = @_;
-  return sub { $self->$code($ctx, @_) };
+    my ( $self, $ctx, $code ) = @_;
+    my $weak_ctx = $ctx;
+    weaken $weak_ctx;
+
+    return sub { $self->$code($weak_ctx, @_) };
 }
 
 sub render {
@@ -246,9 +253,7 @@ sub render {
     if ($self->has_expose_methods) {
         foreach my $exposed_method( keys %{$self->expose_methods} ) {
             if(my $code = $self->can( $self->expose_methods->{$exposed_method} )) {
-                my $weak_ctx = $c;
-                weaken $weak_ctx;
-                $vars->{$exposed_method} = $self->build_exposed_method($weak_ctx, $code);
+                $vars->{$exposed_method} = $self->build_exposed_method($c, $code);
             } else {
                 Catalyst::Exception->throw( "$exposed_method not found in Xslate view" );
             }
@@ -360,7 +365,20 @@ cause the previously created underlying Text::Xslate object to be cleared
 
 =head2 verbose
 
+=head2 line_start
+
+=head2 tag_start
+
+=head2 tag_end
+
+=head2 warn_handler
+
+=head2 die_handler
+
+=head2 pre_process_handler
+
 =head2 suffix
+
 
 Use this to enable TT2 compatible variable methods via Text::Xslate::Bridge::TT2 or Text::Xslate::Bridge::TT2Like
 

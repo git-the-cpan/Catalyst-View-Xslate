@@ -2,7 +2,6 @@ Build.PL
 Changes
 LICENSE
 META.json
-Makefile
 README.md
 cpanfile
 lib/Catalyst/Helper/View/Xslate.pm
@@ -11,6 +10,7 @@ t/001_load.t
 t/002_render.t
 t/003_helper.t
 t/004_widechar.t
+t/005_memory_leak.t
 t/lib/TestApp.pm
 t/lib/TestApp/Controller/Root.pm
 t/lib/TestApp/View/Xslate/Appconfig.pm
